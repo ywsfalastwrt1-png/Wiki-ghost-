@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ويكي الغموض - موسوعة المواقف المرعبة والغريبة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --wiki-blue: #3366cc;
+            --wiki-dark-blue: #2a56b0;
+            --wiki-red: #dd3333;
+            --wiki-bg: #f6f6f6;
+            --wiki-white: #ffffff;
+            --wiki-border: #a2a9b1;
+            --wiki-text: #202122;
+            --wiki-gray: #72777d;
+            --wiki-light-gray: #eaecf0;
+            --wiki-sidebar: #f8f9fa;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Noto Sans Arabic', 'Noto Naskh Arabic', sans-serif;
+            background: var(--wiki-bg);
+            color: var(--wiki-text);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .wiki-header {
+            background: var(--wiki-white);
+            border-bottom: 1px solid var(--wiki-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-top {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--wiki-text);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--wiki-blue), var(--wiki-dark-blue));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 2px 8px rgba(51, 102, 204, 0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--wiki-text);
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            font-size: 12px;
+            color: var(--wiki-gray);
+            font-weight: 400;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 45px 10px 15px;
+            border: 1px solid var(--wiki-border);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            background: var(--wiki-white);
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--wiki-blue);
+            box-shadow: 0 0 0 3px rgba(51, 102, 204, 0.1);
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: var(--wiki-gray);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--wiki-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--wiki-dark-blue);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: var(--wiki-white);
+            color: var(--wiki-text);
+            border: 1px solid var(--wiki-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--wiki-light-gray);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .wiki-nav {
+            background: var(--wiki-white);
+            border-bottom: 1px solid var(--wiki-border);
+            padding: 0 20px;
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            padding: 10px 16px;
+            text-decoration: none;
+            color: var(--wiki-blue);
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--wiki-text);
+            border-bottom-color: var(--wiki-blue);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .wiki-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .wiki-sidebar {
+            width: 220px;
+            background: var(--wiki-sidebar);
+            padding: 20px 15px;
+            border-left: 1px solid var(--wiki-border);
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+
+        .sidebar-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--wiki-gray);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--wiki-light-gray);
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 6px 10px;
+            text-decoration: none;
+            color: var(--wiki-blue);
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-link:hover {
+            background: var(--wiki-light-gray);
+            color: var(--wiki-dark-blue);
+        }
+
+        .sidebar-link.active {
+            background: rgba(51, 102, 204, 0.1);
+            color: var(--wiki-blue);
+            font-weight: 600;
+        }
+
+        .stats-box {
+            background: var(--wiki-white);
+            border: 1px solid var(--wiki-border);
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--wiki-light-gray);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--wiki-blue);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .wiki-main {
+            flex: 1;
+            padding: 25px 30px;
+            background: var(--wiki-white);
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--wiki-border);
+        }
+
+        .page-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-header p {
+            color: var(--wiki-gray);
+            font-size: 15px;
+        }
+
+        /* ===== FILTERS ===== */
+        .filters-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-chip {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--wiki-border);
+            background: var(--wiki-white);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .filter-chip:hover {
+            background: var(--wiki-light-gray);
+        }
+
+        .filter-chip.active {
+            background: var(--wiki-blue);
+            color: white;
+            border-color: var(--wiki-blue);
+        }
+
+        .filter-chip .count {
+            background: rgba(255,255,255,0.3);
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+
+        /* ===== STORIES GRID ===== */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .story-card {
+            background: var(--wiki-white);
+            border: 1px solid var(--wiki-border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--wiki-blue);
+            transition: width 0.3s;
+        }
+
+        .story-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .story-card:hover::before {
+            width: 6px;
+        }
+
+        .story-card.scary::before { background: #dc3545; }
+        .story-card.weird::before { background: #6f42c1; }
+        .story-card.paranormal::before { background: #fd7e14; }
+        .story-card.mystery::before { background: #20c997; }
+        .story-card.dream::before { background: #0dcaf0; }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .story-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--wiki-text);
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .story-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+
+        .badge-scary { background: #ffe5e5; color: #dc3545; }
+        .badge-weird { background: #f0e5ff; color: #6f42c1; }
+        .badge-paranormal { background: #fff3e0; color: #fd7e14; }
+        .badge-mystery { background: #e0f7f0; color: #20c997; }
+        .badge-dream { background: #e0f7ff; color: #0dcaf0; }
+
+        .story-preview {
+            color: var(--wiki-gray);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .story-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--wiki-gray);
+            padding-top: 12px;
+            border-top: 1px solid var(--wiki-light-gray);
+        }
+
+        .story-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--wiki-blue), var(--wiki-dark-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .story-date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--wiki-white);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--wiki-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--wiki-gray);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--wiki-light-gray);
+            color: var(--wiki-text);
+        }
+
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            max-height: calc(90vh - 140px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--wiki-text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--wiki-border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--wiki-blue);
+            box-shadow: 0 0 0 3px rgba(51, 102, 204, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.8;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .modal-footer {
+            padding: 15px 25px;
+            border-top: 1px solid var(--wiki-border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* ===== STORY DETAIL MODAL ===== */
+        .story-detail .modal {
+            max-width: 800px;
+        }
+
+        .detail-header {
+            margin-bottom: 20px;
+        }
+
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: var(--wiki-gray);
+        }
+
+        .detail-content {
+            font-size: 16px;
+            line-height: 2;
+            color: var(--wiki-text);
+            white-space: pre-wrap;
+        }
+
+        .detail-content p {
+            margin-bottom: 15px;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--wiki-gray);
+        }
+
+        .empty-state-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--wiki-text);
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .wiki-sidebar {
+                display: none;
+            }
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-top {
+                flex-wrap: wrap;
+            }
+            .search-box {
+                order: 3;
+                max-width: 100%;
+                width: 100%;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--wiki-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--wiki-border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--wiki-gray);
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--wiki-light-gray);
+            border-top-color: var(--wiki-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .story-card {
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="wiki-header">
+        <div class="header-top">
+            <a href="#" class="logo" onclick="resetFilters(); return false;">
+                <div class="logo-icon">👻</div>
+                <div class="logo-text">
+                    <h1>ويكي الغموض</h1>
+                    <span>موسوعة المواقف المرعبة والغريبة</span>
+                </div>
+            </a>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث في القصص..." oninput="handleSearch()">
+                <button>🔍</button>
+            </div>
+ 
